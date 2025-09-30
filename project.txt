@@ -1,0 +1,94 @@
+Boom Boom Tomb
+
+Scenes that are connected:
+
+Scene 10 -  Ruined House (Semi-Sentient)
+link: https://isle.a.hackclub.dev/scenes/10
+(north westward)
+
+Scene 55 - The Forest of Many Tree-Like Things That Are Not Actually Trees
+link: https://isle.a.hackclub.dev/scenes/55
+(south, slightly westward)
+
+Scene 58 - Wigglebutt Woods
+link: not exist
+(Eastwards)
+
+7 Hours Left What can I implement:
+
+Original Scene:
+    Desert background - in assets as a png(Desert)
+    Tomb in the middle - in assets as a png(tomb)
+    explorer next to the Tomb - in assets as a png(explorer)
+    sign to scene 10 to the Left - in assets as a png(sign)
+    sign to scene 55 and 58 to the right - in assets as a png(sign)
+    small stall next to the pyramid(stall.png)
+
+explorer scene:
+    you clikc on explorer, show explorer.png but bigger
+    and desert.png as background
+    talk to explorer
+    options are leave or talk
+    talk options will be made soon
+
+Room Scene  
+    depends on what you roll the room you get is chosen
+    boom(explode)
+    chest room
+        coins, bombs, item, or artificat chance
+    artifact room
+    trap room
+    npc room
+        gambeling, shop
+        each npc has its model (assets/gambelingnpc.png and so on)
+
+
+Door Scene
+    3 doors (use door.png from assets)
+    background is pyramid background(pyramidbackground.pn)
+    one middle, left, and right
+    each are clickable but when you click on it a text bubble appears 
+    shot text on what the room sounds like via the door
+    confrim on going in or not
+
+Market scene:
+    you click on the stall, show market.png
+    background is desert.png
+    npc called marketnpc.png there 
+    text interatction on whether you want to buy anything or leave
+
+Intro:
+Black screen and white text explaining what you see
+Explorer comes up and text interaction starts
+    add that saying reloading the screen loses data
+    Explains the Tomb/the lore
+    Maybe go through one loop of the tomb?(if im pressed for time skip it)
+    Or make it so that the player can go up to explorer to go into the tomb(if they try clicking on it without going through explorer, explorer forces player to go in with them)
+Once you go through first try of the tomb, player tries again and again(untill they get the 3 artifacts)
+
+Outro:
+Once you get the 3 artifacts, you auto go to explorer
+Some text with how it works/thanks
+some prize or smth
+
+Game Loop:
+
+First time:
+Explorer explains how the tomb works when you go in together
+every room has three doors
+you have to proceed through each door and try to survive and collect artficats
+you can use items as well
+then gets Outro
+Explains the shop as well - use coins you find, then buy stuff from the market
+
+Regular:
+You go in and try to get an artificat
+go through doors and try to make it work!
+
+REACH GOALS:
+add more events
+more npcs
+etc.
+
+
+

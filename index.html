@@ -6,8 +6,39 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="scene"></div>
+    <div id="game">
+        <div id="scene" aria-live="polite"></div>
+        
+        <div id="hud">
+            <div class="hud-item" id="hud-coins">🪙 0</div>
+            <div class="hud-item" id="hud-artifacts">🗿 0/3</div>
+        </div>
+
+        <div id="overlay" class="hidden" aria-hidden="true"></div>
+
+        <div id="dialog" class="hidden" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+            <div class="dialog-content">
+                <h2 id="dialog-title"></h2>
+                <div id="dialog-body"></div>
+                <div class="dialog-actions" id="dialog-actions"></div>
+            </div>
+        </div>
+
+        <div id="confirm" class="hidden" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+            <div class="dialog-content">
+                <h2 id="confirm-title">Are You sure?</h2>
+                <div id="confirm-body"></div>
+                <div class = "dialog-actions">
+                    <button class="btn" id="confirm-no">No</button>
+                    <button class="btn primary" id="confirm-yes">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
     <script src="scenes.js"></script>
+    <script>go('desert');</script>
+    
 </body>
 </html>

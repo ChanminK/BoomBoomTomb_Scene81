@@ -1,0 +1,132 @@
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; padding: 0; background: #0f0a05; color: #f7f1e8; font-family: system-ui, Segoe UI, Roboto, sans-serif; }
+button { font: inherit; }
+
+#game {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  background: #1a120d;
+  overflow: hidden;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#scene {
+  position: absolute;
+  inset: 0;
+}
+
+#hud {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+.hud-item {
+  background: rgba(0,0,0,.45);
+  padding: 6px 10px;
+  border: 1px solid #4a3c2f;
+  border-radius: 8px;
+  text-shadow: 0 1px 0 rgba(0,0,0,.5);
+  font-weight: 600;
+}
+
+.bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+}
+
+.prop {
+  position: absolute;
+  cursor: pointer;
+  user-select: none;
+  transition: transform .12s ease, filter .12s ease;
+}
+
+.prop:hover { transform: translateY(-2px) scale(1.01); filter: brightness(1.03); }
+.prop:active { transform: translateY(0) scale(0.99); }
+
+.prop.flipped{ transform: scaleX(-1);}
+.prop.flipped:hover{ transform: scaleX(-1) translateY(-2px) scale(1.01); }
+.prop.flipped:active{ transform: scaleX(-1) translateY(0) scale(0.99); }
+
+.tomb { left: 45%; top: 38%; width: 18%; }
+.explorer { left: 30%; top: 55%; width: 10%; }
+.sign-left { left: 7%; top: 58%; width: 10%; }
+.sign-right { right: 7%; top: 58%; width: 10%; }
+.stall { right: 18%; top: 50%; width: 12%; }
+
+.door { width: 14%; position: absolute; top: 42%; cursor: pointer; }
+.door.left { left: 22%; }
+.door.mid  { left: 43%; }
+.door.right{ left: 64%; }
+
+.tooltip {
+  position: absolute;
+  padding: 6px 8px;
+  background: rgba(0,0,0,.7);
+  border: 1px solid #5a493a;
+  border-radius: 8px;
+  font-size: 12px;
+  pointer-events: none;
+  transform: translate(-50%, -120%);
+  white-space: nowrap;
+}
+
+.hidden {
+    display:none !important;
+}
+
+#overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.55);
+  z-index: 20;
+  backdrop-filter: blur(2px);
+}
+
+#dialog, #confirm {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  z-index: 25;
+}
+.dialog-content {
+  width: min(90%, 560px);
+  background: #1c1510;
+  border: 1px solid #5a493a;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.5);
+}
+#dialog-title, #confirm-title { margin: 0 0 8px; font-size: 20px; }
+#dialog-body, #confirm-body { line-height: 1.5; color: #f2e7d8; }
+.dialog-actions { display: flex; gap: 8px; margin-top: 12px; justify-content: flex-end; }
+
+.btn {
+  background: #2a211a;
+  color: #f7f1e8;
+  border: 1px solid #6b5745;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn:hover { background: #34281f; }
+.btn.primary { background: #8b5d2e; border-color: #99683a; }
+.btn.primary:hover { background: #9b6a38; }
+
+a.sign-link {
+  position: absolute; color: #f7f1e8; text-decoration: none;
+  font-weight: 700; padding: 3px 6px; background: rgba(0,0,0,.35);
+  border: 1px solid #4a3c2f; border-radius: 8px; font-size: 12px;
+}
+a.sign-link:hover { background: rgba(0,0,0,.5); }
+
+@media (max-width: 520px) {
+  .hud-item { font-size: 12px; padding: 4px 8px; }
+}

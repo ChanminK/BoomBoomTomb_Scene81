@@ -78,10 +78,11 @@ button { font: inherit; }
   pointer-events: none;
   transform: translate(-50%, -120%);
   white-space: nowrap;
+  z-index: 6;
 }
 
 .hidden {
-    display:none !important;
+    display: none !important;
 }
 
 #overlay {
@@ -129,4 +130,40 @@ a.sign-link:hover { background: rgba(0,0,0,.5); }
 
 @media (max-width: 520px) {
   .hud-item { font-size: 12px; padding: 4px 8px; }
+}
+
+
+.intro{
+    position: absolute;
+    inset: 0;
+    background: #000;
+    display: grid;
+    place-items: center;
+    z-index: 50;
+}
+
+.intro-inner {
+    max-width: 900px;
+    padding: 24px;
+    color: #fff;
+    text-align: center;
+    font-size: clamp(16px, 2.4vw, 28px);
+    line-height: 1.6;
+}
+
+.intro-text{
+    min-height: 3em;
+}
+
+.intro-prompt{
+    margin-top: 12px;
+    opacity: .9;
+}
+
+.blinl {
+    animation: blink 1s steps(1, end) infinite;
+}
+
+@keyframes blink{
+    50% { opacity: .35;}
 }

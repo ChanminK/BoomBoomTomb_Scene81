@@ -1,0 +1,145 @@
+current problems/addons:
+
+make site refresh everything upon loading
+
+Make undertale text talking sfx while text is on
+
+for first one, 2nd one as well
+walking sfx not showing
+
+Enter to continue pops up after 3 seconds
+
+mid boom cut mp3 file so boom is quick
+
+when transition from intro to desert add a transition keyframe (fade to white or smth)
+
+background msuic plays when desert scene appears
+
+console error:
+Uncaught (in promise) NotAllowedError: play() failed because the user didn't interact with the document first. https://goo.gl/xX8pDD
+
+Scnene 10 + 55/58 text closer to signs
+Better sign pngs
+
+add sky.png behind desert.png
+
+better exlorer png
+
+better shop png
+
+better Tomb png
+
+In explorer text(first time):
+    Welcome adventurer! You are now at the famous Boom Boom Tomb!
+    Here, you must find three special artifacts and bring them back to me!
+    But be careful! If you're not careful, you might go...
+    BOOOM - bigboom.mp3 plays
+    If you don't want to,
+    GET OUT - get out sfx plays, image switches to get out png
+    (also don't reload the page progress might reset)
+
+    So adventurer, what would you like to do?
+    (two options show up: adventure, leave)
+    
+    press leave:
+    alright
+    GET OUT - get out mp3 plays, choose between the three other scenes connected and force user to go three
+
+    press adventure:
+    Wonderful!
+    Here's how it works: when you enter the tomb, you will be presented with 3 doors.
+    Choose one and hope that it isn't a bomb!
+    You might find artifacts, treasures, or coins to spend at the shop to help you!
+    Continue and when you have 3 artifacts, come back to me!
+    Then I'll give you your pize.
+    Good luck!
+
+Explorer(after this)
+    Now the tomb is a dangerous place, but remember this!
+    You might hear some telltale signs of certain things!
+
+    Conversation options:
+    I have all the artifacts
+        If its true:
+            Wonderful!
+            Here's your prize:
+            after you press enter rickroll starts playing on screen
+        If it's false:
+            Hmm, you don't seem to have three artifacts yet...
+            come back later!
+
+    Lore(will add later)
+
+Tomb:
+    Get better door png
+    Add leave button at bottom right
+
+    room is generated each time
+    door 1 = __
+    door 2 =__
+    door 3=__
+    when you click each door you have a chance to hear something
+    but 1/2 chance you do or it says "you can't hear anything"
+
+    Bomb room:
+        play bigexplosion + you drop 5 coins
+        if you have less than 5 coins, you different
+        game over
+
+    Merchant room:
+        uses merchant.png
+        can buy one of the three items in shop for 1 coin
+
+    Gambler:
+        uses gambler.png
+        gamble 2 coins for 4?
+
+    trap room:
+        traps! you drop 3 coins
+        (if less than 3 coins)
+        game over, too bad!
+
+    artifact room:
+        You gain an artifact!
+        show artifact 1 2 or 3 .png depending on what you have
+        once you get 3 say "i should go to the explorer now"
+        go to explorer
+
+Shop:
+    Have it make store npc model show up
+    Have shop npc actually talk
+    
+    First time:
+        Welcome adventurer, to my humble shop
+        Here I sell items that you may buy with coins to aid you on your journey
+        Here, have a look
+        [opens shop menu]
+
+    2nd time and after:
+        Welcome back.
+
+        two options:
+        shop
+            opens shop menu
+        Lore(may add)
+    
+    shop menu:
+        Just a pop up screen with the different items(bomb, charm and shield)
+        Name at the top, img of it in the middle, description of the item below, coin price below that 
+        Coin price white if you have enough coin to buy, red if not
+        can buy stuff, but must press x in the top right to leave back to desert scene
+
+    Better item explanations:
+    Bomb - can use to open locked doors - 3 coins
+    Charm - increaes odds of artifacts - 5 coins
+    Shield - can use to save yourself from a bomb once - 10 coins
+
+signs:
+    open panel.png 
+    says Directions to _scene name_
+    link to the scene is hyperlinked so that if they press it they get taken three
+    also a x in the top right to go back to desert view as well
+
+REACH:
+add lore
+each time npc talks undertale like text thingy goes on

@@ -15,9 +15,9 @@ const ASSETS = {
 const HINTS = {
     boom: "faint sizzling...",
     chest: "metallic clinks...",
-    artifcat: "a low hum...",
+    artifact: "a low hum...",
     trap: "whistling drafts...",
-    npc: "murming voices..."
+    npc: "murmuring voices..."
 };
 
 function randomHint() {
@@ -238,3 +238,104 @@ window.SCENES = {
     });
   }
 };
+
+window.SCENES.intro = function(root){
+    const hud = document.getElementById('hud');
+    if (hud) hud.style.display = 'none';
+
+    const wrap = el('div', { class: 'intro'},
+        el('div', { class: 'intro-inner'}, [
+            el('div', {id:'introText', class:'intro-text'}),
+            el('div', {id:'introPrompt', class:'intro-prompt hidden blink'}, 'press enter to continue')
+        ])
+    );
+    root.appendChild(wrap);
+
+    const sfx = {
+        walk: new Audio('assets/sfx/walk.mp3'),
+        farboom: new Audio('assets/sfx/distantexplosion.mp3'),
+        midboom: new Audio('assets/sfx/midexplosion.mp3'),
+        closeboom: new Audio('assets/sfx/bigexplosion.mp3'),
+        running: new Audio('assets/sfx/running.mp3')
+    };
+
+    const seq = [
+        { text: 'You walk through the scorching sands, desperate for water.', sfx: 'walk'},
+        { text: 'Surprisingly, you start hearing... explosions?'},
+        { text: 'boom', sfx: 'farboom'},
+        { text: 'Boom', sfx: 'midboom'},
+        { text: 'BOOM', sfx: 'closeboom'},
+        { text: 'You run quickly and see...', sfx: 'running'}
+    ];
+
+    const textEl = document.getElementById('introText');
+    const promptEl = document.getElementById('introPrompt');
+
+    let i = 0;
+    let idx = 0;
+    let typing = false;
+    let timer = null;
+
+    function play(name){
+        const a = sfx[name];
+        if (!a) return;
+        try { a.currentTime = 0; a.play(); } catch {}
+    }
+
+    function stopAll(){
+        Object.values(sfx).forEach(a => {try {a.pause(); a.currentTime = 0;} catch {} });
+    }
+
+    function startLine(){
+        promptEl.classList.add('hidden');
+        textEl.textContent = '';
+        idx = 0;
+        typing = true;
+        const line = seq[i];
+        if(line.sfx) play(line.sfx);
+        clearInterval(timer);
+        timer = setInterval(() => {
+            const full = line.text;
+            if (idx >= full.length){
+                clearInterval(timer);
+                typing = false;
+                promptEl.classList.remove('hidden');
+                return;
+            }
+            textEl.textContent = full.slice(0, idx +1);
+            idx += 1;
+        }, 30);
+    }
+
+    function completeLine(){
+        const line = seq[i];
+        clearInterval(timer);
+        textEl.textContent = line.text;
+        typing = false;
+        promptEl.classList.remove('hidden');
+    }
+
+    function next(){
+        stopAll();
+        i += 1;
+        if (i < seq.length){
+            startLine();
+        } else {
+            if(hud) hud.style.display = '';
+            root.innerHTMl = '';
+            go('desert');
+        }
+    }
+    
+    function onKey(e){
+        if (e.key !== 'Enter') return;
+        if (typing) {
+            completeLine();
+        } else {
+            next();
+        }
+    }
+
+    window.addEventListener("keydown", onKey);
+    startLine();
+}

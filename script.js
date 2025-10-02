@@ -1,3 +1,5 @@
+const RESET_ON_LOAD = true;
+
 const state = {
     artifacts: [],
     coins: 0,
@@ -7,9 +9,15 @@ const state = {
     meta: {}
 };
 
+if (RESET_ON_LOAD) {
+    try{localStorage.removeItem('bbt_state'); } catch {
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     hideDialog();
     hideConfirm();
+    AudioMgr.bindUnlock();
 });
 
 function save(){ 
@@ -93,6 +101,64 @@ function attachTooltip(node, text){
     });
     node.addEventListener('mouseleave', ()=>{ if(tip){ tip.remove(); tip=null; } });
 };
+
+const AudioMgr = {
+  unlocked: false,
+  handlersBound: false,
+  sounds: {
+    blip:  new Audio('assets/sfx/blip.mp3'),
+    walk:  new Audio('assets/sfx/walk.mp3'),
+    running: new Audio('assets/sfx/running.mp3'),
+    bgm:   new Audio('assets/sfx/desert.mp3'),
+    farboom:   new Audio('assets/sfx/distantexplosion.mp3'),
+    midboom:   new Audio('assets/sfx/midexplosion.mp3'),
+    closeboom: new Audio('assets/sfx/bigexplosion.mp3')
+  },
+  bindUnlock(){
+    if (this.handlersBound) return;
+    this.handlersBound = true;
+    const tryUnlock = () => this.unlock();
+    window.addEventListener('pointerdown', tryUnlock, { once:true });
+    window.addEventListener('keydown',     tryUnlock, { once:true });
+    window.addEventListener('touchstart',  tryUnlock, { once:true, passive:true });
+  },
+  unlock(){
+    if (this.unlocked) return;
+    this.unlocked = true;
+    Object.values(this.sounds).forEach(a=>{
+      try {
+        a.muted = true;
+        a.play().then(()=>{ a.pause(); a.currentTime=0; a.muted=false; }).catch(()=>{ a.muted=false; });
+      } catch {}
+    });
+  },
+  play(name, opts={}){
+    const a=this.sounds[name]; if(!a || !this.unlocked) return;
+    a.loop = !!opts.loop;
+    a.playbackRate = opts.rate || 1;
+    a.currentTime = opts.start || 0;
+    a.play().catch(()=>{});
+    if (opts.duration) setTimeout(()=>{ try{ a.pause(); a.currentTime=0; }catch{} }, opts.duration);
+  },
+  stop(name){ const a=this.sounds[name]; if(!a) return; try{ a.pause(); a.currentTime=0; }catch{} },
+  stopAll(){ Object.keys(this.sounds).forEach(k=>this.stop(k)); }
+};
+
+function ensureTransitionNode(){
+    let t = document.getElementById('transition');
+    if(!t){ t = document.createElement('div'); t.id = 'transition'; document.body.appendChild(t); }
+    return t;
+}
+
+function transitionTo(sceneId){
+    const t = ensureTransitionNode();
+    t.className = 'fade-white-in';
+    setTimeout(() => {
+        go(sceneId);
+        t.className='fade-white-out';
+        setTimeout(() => { t.className=''; }, 400);
+    }, 200);
+}
 
 function go(sceneId, data = {}){
     const root = document.getElementById('scene');

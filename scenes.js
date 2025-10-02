@@ -1,15 +1,18 @@
 const ASSETS = {
-    desert: "assets/desert.jpg",
+    desert: "assets/desert.png",
     pyramid: 'assets/pyramidbackground.jpg',
     tomb: 'assets/tomb.jpg',
-    door: 'assets/door.jpg',
+    door: 'assets/door.png',
     explorer: 'assets/explorer.png',
     sign: 'assets/sign.png',
     stall: 'assets/stall.png',
     market: 'assets/market.png',
     marketnpc: 'assets/marketnpc.png',
     gamblingnpc: 'assets/gamblingnpc.jpg',
-    shopnpc: 'assets/shopnpc.png'
+    shopnpc: 'assets/shopnpc.png',
+    getout: 'assets/getout.png',
+    shopcounter: 'assets/shopcounter.jpg',
+    tombshopnpc: 'assets/tombshopnpc.png'
 };
 
 const HINTS = {
@@ -26,23 +29,10 @@ function randomHint() {
     return { type: k, text: HINTS[k] };
 }
 
-function attachTooltip(node, text) {
-    let tip;
-    node.addEventListener('mouseenter', () => {
-        tip = document.createElement('div');
-        tip.className = 'tooltip';
-        tip.textContent = text;
-        node.parentContent = text;
-        const r = node.getBoundingClientRect();
-        const pr = node.parentElement.getBoundingClientRect();
-        tip.style.left = (r.left - pr.left + r.width / 2) + 'px';
-        tip.style.top = (r.top - pr.top) + 'px';
-    });
-    node.addEventListener('mouseleave', () => {tip && tip.remove(); tip = null; });
-}
-
 window.SCENES = {
   desert(root) {
+    try { AudioMgr.stopAll(); AudioMgr.play('bgm', { loop: true}); } catch{}
+
     root.appendChild(el('img', { src: ASSETS.desert, class: 'bg', alt: 'Desert dunes' }));
     const tomb = el('img', { src: ASSETS.tomb, class: 'prop tomb', alt: 'Tomb entrance', onclick: () => {
       if (!state.tutorialDone) {
@@ -84,8 +74,8 @@ window.SCENES = {
     root.appendChild(signRight);
     const stall = el('img', { src: ASSETS.stall, class: 'prop stall', alt: 'Market stall', onclick: () => go('market') });
     root.appendChild(stall);
-    root.appendChild(el('a', { class: 'sign-link', style: { left:'6%', top:'50%' }, href: 'https://isle.a.hackclub.dev/scenes/10', target: '_blank' }, 'Scene 10'));
-    root.appendChild(el('a', { class: 'sign-link', style: { right:'6%', top:'50%' } }, '55 / 58'));
+    root.appendChild(el('a', { class: 'sign-link', style: { left:'9%', top:'66%' }, href: 'https://isle.a.hackclub.dev/scenes/10', target: '_blank' }, 'Scene 10'));
+    root.appendChild(el('a', { class: 'sign-link', style: { right:'9%', top:'66%' } }, 'Scenes 55/58'));
   },
 
   explorer(root) {
@@ -251,14 +241,6 @@ window.SCENES.intro = function(root){
     );
     root.appendChild(wrap);
 
-    const sfx = {
-        walk: new Audio('assets/sfx/walk.mp3'),
-        farboom: new Audio('assets/sfx/distantexplosion.mp3'),
-        midboom: new Audio('assets/sfx/midexplosion.mp3'),
-        closeboom: new Audio('assets/sfx/bigexplosion.mp3'),
-        running: new Audio('assets/sfx/running.mp3')
-    };
-
     const seq = [
         { text: 'You walk through the scorching sands, desperate for water.', sfx: 'walk'},
         { text: 'Surprisingly, you start hearing... explosions?'},
@@ -276,14 +258,10 @@ window.SCENES.intro = function(root){
     let typing = false;
     let timer = null;
 
-    function play(name){
-        const a = sfx[name];
-        if (!a) return;
-        try { a.currentTime = 0; a.play(); } catch {}
-    }
-
-    function stopAll(){
-        Object.values(sfx).forEach(a => {try {a.pause(); a.currentTime = 0;} catch {} });
+    function showPromptLater(){
+        setTimeout(() => {
+            promptEl.classList.remove('hidden');
+        }, 3000);
     }
 
     function startLine(){
@@ -292,14 +270,14 @@ window.SCENES.intro = function(root){
         idx = 0;
         typing = true;
         const line = seq[i];
-        if(line.sfx) play(line.sfx);
+        if(line.sfx) AudioMgr.play(line.sfx);
         clearInterval(timer);
         timer = setInterval(() => {
             const full = line.text;
             if (idx >= full.length){
                 clearInterval(timer);
                 typing = false;
-                promptEl.classList.remove('hidden');
+                showPromptLater();
                 return;
             }
             textEl.textContent = full.slice(0, idx +1);
@@ -308,27 +286,33 @@ window.SCENES.intro = function(root){
     }
 
     function completeLine(){
-        const line = seq[i];
+        const line = (i >= 0 && i < seq.length) ? seq[i] : { text: ''};
         clearInterval(timer);
         textEl.textContent = line.text;
         typing = false;
-        promptEl.classList.remove('hidden');
+        showPromptLater();
     }
 
     function next(){
-        stopAll();
+        AudioMgr.stopAll();
         i += 1;
         if (i < seq.length){
             startLine();
         } else {
             if(hud) hud.style.display = '';
-            root.innerHTMl = '';
-            go('desert');
+            root.innerHTML = '';
+            transitionTo('desert');
         }
     }
     
     function onKey(e){
         if (e.key !== 'Enter') return;
+        try { AudioMgr.unlock(); } catch {}
+        if (i<0){
+            i=0;
+            startLine();
+            return;
+        }
         if (typing) {
             completeLine();
         } else {

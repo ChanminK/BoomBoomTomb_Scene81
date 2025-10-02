@@ -2,32 +2,19 @@ current problems/addons:
 
 make site refresh everything upon loading
 
-Make undertale text talking sfx while text is on
+Make undertale text talking sfx while text is going on for ONLY NPCS
 
-for first one, 2nd one as well
-walking sfx not showing
-
-Enter to continue pops up after 3 seconds
-
-mid boom cut mp3 file so boom is quick
-
-when transition from intro to desert add a transition keyframe (fade to white or smth)
-
-background msuic plays when desert scene appears
-
+walk.mp3 not playing
 console error:
 Uncaught (in promise) NotAllowedError: play() failed because the user didn't interact with the document first. https://goo.gl/xX8pDD
 
+Make enter pop up after 3 seconds
+
+when transition from intro to desert add a transition keyframe (fade to white then to desert)
+
+background msuic plays when desert scene appears(desert.mp3)
+
 Scnene 10 + 55/58 text closer to signs
-Better sign pngs
-
-add sky.png behind desert.png
-
-better exlorer png
-
-better shop png
-
-better Tomb png
 
 In explorer text(first time):
     Welcome adventurer! You are now at the famous Boom Boom Tomb!
@@ -35,7 +22,7 @@ In explorer text(first time):
     But be careful! If you're not careful, you might go...
     BOOOM - bigboom.mp3 plays
     If you don't want to,
-    GET OUT - get out sfx plays, image switches to get out png
+    GET OUT - get out sfx plays, image switches to getout.png
     (also don't reload the page progress might reset)
 
     So adventurer, what would you like to do?
@@ -75,29 +62,28 @@ Tomb:
     Add leave button at bottom right
 
     room is generated each time
-    door 1 = __
-    door 2 =__
-    door 3=__
+    door 1, 2, and door 3's room types are chosen when you see them
     when you click each door you have a chance to hear something
     but 1/2 chance you do or it says "you can't hear anything"
 
     Bomb room:
         play bigexplosion + you drop 5 coins
-        if you have less than 5 coins, you different
+        if you have less than 5 coins, you die
         game over
 
     Merchant room:
-        uses merchant.png
-        can buy one of the three items in shop for 1 coin
+        uses tombshopnpc.png
+        can buy one of the three items in shop randomly for 1 coin
+        text box asking if you want to buy it, yes or no prompt
 
     Gambler:
-        uses gambler.png
-        gamble 2 coins for 4?
+        uses gamblernpc.png
+        gamble 2 coins for 4 (50% odds)?
 
     trap room:
         traps! you drop 3 coins
         (if less than 3 coins)
-        game over, too bad!
+        you get kicked out of the tomb and lose all your coins
 
     artifact room:
         You gain an artifact!
@@ -106,7 +92,7 @@ Tomb:
         go to explorer
 
 Shop:
-    Have it make store npc model show up
+    have stallnpc.png three
     Have shop npc actually talk
     
     First time:
@@ -120,12 +106,12 @@ Shop:
 
         two options:
         shop
-            opens shop menu
+            opens shop menu(shopcounter.jpg)
         Lore(may add)
     
     shop menu:
         Just a pop up screen with the different items(bomb, charm and shield)
-        Name at the top, img of it in the middle, description of the item below, coin price below that 
+        Name at the top, img of it in the middle(assets/itemname.png), description of the item below, coin price below that 
         Coin price white if you have enough coin to buy, red if not
         can buy stuff, but must press x in the top right to leave back to desert scene
 
@@ -135,7 +121,7 @@ Shop:
     Shield - can use to save yourself from a bomb once - 10 coins
 
 signs:
-    open panel.png 
+    open text box
     says Directions to _scene name_
     link to the scene is hyperlinked so that if they press it they get taken three
     also a x in the top right to go back to desert view as well

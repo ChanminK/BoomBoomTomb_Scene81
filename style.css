@@ -160,10 +160,27 @@ a.sign-link:hover { background: rgba(0,0,0,.5); }
     opacity: .9;
 }
 
-.blinl {
+.blink {
     animation: blink 1s steps(1, end) infinite;
 }
 
 @keyframes blink{
     50% { opacity: .35;}
 }
+
+#transition {
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 60
+}
+
+.fade-white-in { animation: fwIn .2s forwards;}
+.fade-white-out { animation: fwOut .4s forwards;}
+@keyframes fwIn { from{opacity:0} to{opacity:1}}
+@keyframes fwOut { from{opacity:1} to{opacity:0}}
+
+a.sign-link[left] { left: 9%; top: 66%; }
+a.sign-link[right] { right: 9%; top: 66% }

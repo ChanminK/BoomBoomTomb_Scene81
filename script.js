@@ -109,10 +109,13 @@ const AudioMgr = {
     blip:  new Audio('assets/sfx/blip.mp3'),
     walk:  new Audio('assets/sfx/walk.mp3'),
     running: new Audio('assets/sfx/running.mp3'),
-    bgm:   new Audio('assets/sfx/desert.mp3'),
-    farboom:   new Audio('assets/sfx/distantexplosion.mp3'),
-    midboom:   new Audio('assets/sfx/midexplosion.mp3'),
-    closeboom: new Audio('assets/sfx/bigexplosion.mp3')
+    bgm: new Audio('assets/sfx/desert.mp3'),
+    farboom: new Audio('assets/sfx/distantexplosion.mp3'),
+    midboom: new Audio('assets/sfx/midexplosion.mp3'),
+    closeboom: new Audio('assets/sfx/bigexplosion.mp3'),
+    getout: new Audio('assets/sfx/getout.mp3'),
+    tomb: new Audio('assets/sfx/tomb.mp3'),
+    shop: new Audio('assets/sfx/shop.mp3')
   },
   bindUnlock(){
     if (this.handlersBound) return;
@@ -136,6 +139,7 @@ const AudioMgr = {
     const a=this.sounds[name]; if(!a || !this.unlocked) return;
     a.loop = !!opts.loop;
     a.playbackRate = opts.rate || 1;
+    a.volume = (opts.volume ?? 1);
     a.currentTime = opts.start || 0;
     a.play().catch(()=>{});
     if (opts.duration) setTimeout(()=>{ try{ a.pause(); a.currentTime=0; }catch{} }, opts.duration);

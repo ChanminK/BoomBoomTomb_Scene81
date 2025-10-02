@@ -57,8 +57,8 @@ button { font: inherit; }
 .prop.flipped:hover{ transform: scaleX(-1) translateY(-2px) scale(1.01); }
 .prop.flipped:active{ transform: scaleX(-1) translateY(0) scale(0.99); }
 
-.tomb { left: 45%; top: 38%; width: 18%; }
-.explorer { left: 30%; top: 55%; width: 10%; }
+.tomb { left: 35%; top: 38%; width: 34%; }
+.explorer { left: 20%; top: 55%; width: 15%; }
 .sign-left { left: 7%; top: 58%; width: 10%; }
 .sign-right { right: 7%; top: 58%; width: 10%; }
 .stall { right: 18%; top: 50%; width: 12%; }

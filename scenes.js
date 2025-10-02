@@ -12,7 +12,13 @@ const ASSETS = {
     shopnpc: 'assets/shopnpc.png',
     getout: 'assets/getout.png',
     shopcounter: 'assets/shopcounter.jpg',
-    tombshopnpc: 'assets/tombshopnpc.png'
+    tombshopnpc: 'assets/tombshopnpc.png',
+    artifact1: 'assets/artifact1.png',
+    artifact2: 'assets/artifact2.png',
+    artifact3: 'assets/artifact3.png',
+    bomb: 'assets/bomb.png',
+    shield: 'assets/shield.png',
+    charm: 'assets/shield.png'
 };
 
 const HINTS = {
@@ -31,9 +37,10 @@ function randomHint() {
 
 window.SCENES = {
   desert(root) {
-    try { AudioMgr.stopAll(); AudioMgr.play('bgm', { loop: true}); } catch{}
-
-    root.appendChild(el('img', { src: ASSETS.desert, class: 'bg', alt: 'Desert dunes' }));
+    try { AudioMgr.stopAll(); AudioMgr.play('bgm', { loop: true, volume: 0.2}); } catch{}
+    const bg = el('img', { src: ASSETS.desert, class: 'bg', alt: 'Desert dunes' });
+    root.appendChild(bg);
+    
     const tomb = el('img', { src: ASSETS.tomb, class: 'prop tomb', alt: 'Tomb entrance', onclick: () => {
       if (!state.tutorialDone) {
         showDialog({
@@ -49,8 +56,11 @@ window.SCENES = {
       go('doors');
     }});
     root.appendChild(tomb);
+    attachTooltip(tomb, 'Tomb');
+
     const explorer = el('img', { src: ASSETS.explorer, class: 'prop explorer', alt: 'Explorer', onclick: () => go('explorer') });
     root.appendChild(explorer);
+    attachTooltip(explorer, 'Explorer');
 
     const signLeft = el('img', { 
         src: ASSETS.sign,
@@ -58,8 +68,9 @@ window.SCENES = {
         alt: 'Sign to Scene 10',
         onclick: () => window.open('https://isle.a.hackclub.dev/scenes/10', '_blank')
     });
-
     root.appendChild(signLeft);
+    attachTooltip(signLeft, 'Scene 10');
+
     const signRight = el('img', { src: ASSETS.sign, class: 'prop sign-right', alt: 'Signs to 55/58', onclick: () => {
       showDialog({
         title: "Wayfinding",
@@ -72,8 +83,12 @@ window.SCENES = {
       });
     }});
     root.appendChild(signRight);
+    attachTooltip(signRight, 'Scenes 55/58');
+
     const stall = el('img', { src: ASSETS.stall, class: 'prop stall', alt: 'Market stall', onclick: () => go('market') });
     root.appendChild(stall);
+    attachTooltip(stall, 'Market');
+
     root.appendChild(el('a', { class: 'sign-link', style: { left:'9%', top:'66%' }, href: 'https://isle.a.hackclub.dev/scenes/10', target: '_blank' }, 'Scene 10'));
     root.appendChild(el('a', { class: 'sign-link', style: { right:'9%', top:'66%' } }, 'Scenes 55/58'));
   },
@@ -253,7 +268,7 @@ window.SCENES.intro = function(root){
     const textEl = document.getElementById('introText');
     const promptEl = document.getElementById('introPrompt');
 
-    let i = 0;
+    let i = -1;
     let idx = 0;
     let typing = false;
     let timer = null;
@@ -321,5 +336,5 @@ window.SCENES.intro = function(root){
     }
 
     window.addEventListener("keydown", onKey);
-    startLine();
+    document.getElementById('introPrompt').classList.remove('hidden');
 }

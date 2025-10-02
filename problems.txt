@@ -1,21 +1,5 @@
 current problems/addons:
 
-make site refresh everything upon loading
-
-Make undertale text talking sfx while text is going on for ONLY NPCS
-
-walk.mp3 not playing
-console error:
-Uncaught (in promise) NotAllowedError: play() failed because the user didn't interact with the document first. https://goo.gl/xX8pDD
-
-Make enter pop up after 3 seconds
-
-when transition from intro to desert add a transition keyframe (fade to white then to desert)
-
-background msuic plays when desert scene appears(desert.mp3)
-
-Scnene 10 + 55/58 text closer to signs
-
 In explorer text(first time):
     Welcome adventurer! You are now at the famous Boom Boom Tomb!
     Here, you must find three special artifacts and bring them back to me!
@@ -50,7 +34,7 @@ Explorer(after this)
         If its true:
             Wonderful!
             Here's your prize:
-            after you press enter rickroll starts playing on screen
+            after you press enter rickroll(the yt video) starts playing on screen
         If it's false:
             Hmm, you don't seem to have three artifacts yet...
             come back later!
@@ -58,7 +42,7 @@ Explorer(after this)
     Lore(will add later)
 
 Tomb:
-    Get better door png
+    when inside tomb.mp3 starts playing
     Add leave button at bottom right
 
     room is generated each time
@@ -92,8 +76,9 @@ Tomb:
         go to explorer
 
 Shop:
-    have stallnpc.png three
-    Have shop npc actually talk
+    have stallnpc.png pop up
+    Have shop npc actually talk(img of the png with text appearing next to them)
+    shop.mp3 starts playing
     
     First time:
         Welcome adventurer, to my humble shop

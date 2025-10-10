@@ -80,14 +80,26 @@ window.SCENES = {
     }});
     root.appendChild(signLeft);
 
-    const signRight=el('img',{src:ASSETS.sign,class:'prop sign-right',alt:'Signs to 55/58',title:'Scenes 55 / 58',onclick:()=>{
-      showDialog({
-        title:"Directions",
-        body:`<p>South, slightly west: Scene 55 – The Forest of Many Tree-Like Things That Are Not Actually Trees.</p><p><a href="https://isle.a.hackclub.dev/scenes/55" target="_blank" rel="noopener">Open Scene 55</a></p><p>Eastwards: Scene 58 – Wigglebutt Woods (unavailable).</p>`,
-        actions:[{label:"Close",variant:"primary"}]
-      });
-    }});
-    root.appendChild(signRight);
+    const signRight = el('img', {
+  src: ASSETS.sign,
+  class: 'prop sign-right',
+  alt: 'Signs to 55/58',
+  title: 'Scenes 55 / 58',
+  onclick: () => {
+    showDialog({
+      title: "Directions",
+      body: `
+        <p>South, slightly west: Scene 55 – The Forest of Many Tree-Like Things That Are Not Actually Trees.</p>
+        <p><a href="https://isle.a.hackclub.dev/scenes/55" target="_blank" rel="noopener">Open Scene 55</a></p>
+        <p>Eastwards: Scene 58 – Wigglebutt Woods.</p>
+        <p><a href="https://island.hackclub.com/scenes/58" target="_blank" rel="noopener">Open Scene 58</a></p>
+      `,
+      actions: [{ label: "Close", variant: "primary" }]
+    });
+  }
+});
+root.appendChild(signRight);
+
 
     const stall=el('img',{src:ASSETS.stall,class:'prop stall',alt:'Market stall',title:'Market',onclick:()=>go('market')});
     root.appendChild(stall);
